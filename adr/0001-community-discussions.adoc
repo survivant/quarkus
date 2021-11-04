@@ -16,6 +16,7 @@ This setup has issues though, some are:
 - zulip chat is used for a lot of users questions but none of that is easily searchable/discoverable so it is very synchronous,
 - people reported that they don't feel okey posting on quarkus-dev or zulips as it is seems focused on dev work and not so much about community events, jobs, conferences, etc.
 - its hard to monitor as contributor who wants to help answer/ask questions.
+- Users reported they do not have access to Zulip chat due to corporate or company policies/proxies. They do have access to GitHub.
 
 How can we improve this situaton and enable the broader community to more easily ask questions and find answers - without it all be relying on just a few Quarkus core contributors?
 
@@ -59,7 +60,7 @@ Enable GitHub discussions feature on `quarkusio/quarkusio` with the following in
 - Events (Setup and announce of interest or other events)
 - Jobs and Opportunities (post by anyone)
 
-Add discussions triage to Quarkus Bot to add a comment/label based on triage rules.
+Add discussions triage to Quarkus Bot to add a comment/label based on triage rules using `https://docs.github.com/en/graphql/reference/mutations#addlabelstolabelable[addlabelstolabelable]`.
 
 == Consequences
 
