@@ -180,7 +180,7 @@ MAVEN_OPTS="-Xmx4g" ./mvnw -Dquickly
 
 Building can take a few minutes depending on the hardware being used.
 
-**Note** For Apple Silicon computer, Rosetta must be installed. It can be done using `softwareupdate --install-rosetta`
+**Note** For Apple Silicon computers, Rosetta must be installed. It can be done using `softwareupdate --install-rosetta`
 
 ### Updating the version
 
@@ -314,7 +314,7 @@ If you have not done so on this machine, you need to:
   or `$location/JDK/GraalVM/Contents/Home` on macOS
 
 A container engine (such as [Docker](https://www.docker.com/) or [Podman](https://podman.io/)) is not strictly
-necessary: it is used to run the container-based tests which are not enabled by default.
+necessary: it is used to run the container-based tests, which are not enabled by default.
 
 It is a recommended install though when working on any extension that relies on dev services or container-based tests (
 Hibernate ORM, MongoDB, ...):
@@ -512,7 +512,7 @@ Using `./mvnw` is often not practical in this case as you might want to call the
 
 ##### Justfile
 
-As a convenience, we have a [justfile](.justfile)) that provides the suggested set of aliases to use to build Quarkus using [just](https://just.systems/).
+As a convenience, we have a [justfile](.justfile) that provides the suggested set of aliases to use to build Quarkus using [just](https://just.systems/).
 
 Run `just -l` to see the list of aliases.
 
@@ -887,15 +887,15 @@ This currently does not work on Windows as it uses a shell script to copy all th
 coverage module.
 
 If you just need a report for a single module, run `mvn install jacoco:report -Ptest-coverage` in that module (or
-with `-f ...`).
+with `-f...`).
 
 ## Extensions
 
 ### Descriptions
 
-Extensions descriptions (in the `runtime/pom.xml` description or in the YAML `quarkus-extension.yaml`)
-are used to describe the extension and are visible in <https://code.quarkus.io> and <https://extensions.quarkus.io>. Try and pay attention to it. Here are a
-few recommendation guidelines:
+Extension descriptions (in the `runtime/pom.xml` description or in the YAML `quarkus-extension.yaml`)
+are used to describe the extension and are visible in <https://code.quarkus.io> and <https://extensions.quarkus.io>. Try to pay attention to them. Here are a
+few recommended guidelines:
 
 - keep it relatively short so that no hover is required to read it
 - describe the function over the technology
@@ -954,7 +954,7 @@ However, recent patterns of use have led to increased moderation burden, low-val
 
 ### Acceptable Use of LLMs
 
-- LLMs may be used to **assist your development** — e.g. drafting code, writing documentation, proposing fixes — as long as **you understand, validate**, and **take responsibility for the results.**
+- LLMs may be used to **assist your development** — e.g., drafting code, writing documentation, proposing fixes — as long as **you understand, validate**, and **take responsibility for the results**.
 - You should only submit contributions (PRs, comments, discussions, issues) that reflect your **own understanding** and **intent**, not what an Agent/LLM "spit out."
 - You may use Agents/LLMs to help you **write better**, but not to **post more**.
 
@@ -972,7 +972,7 @@ However, recent patterns of use have led to increased moderation burden, low-val
 
 ### If in Doubt
 
-If you're unsure whether your use of Agent/LLMs is acceptable — ask! We're happy to help contributors learn how to use AI tools effectively **without creating noise**.
+If you're unsure whether your use of Agents/LLMs is acceptable — ask! We're happy to help contributors learn how to use AI tools effectively **without creating noise**.
 
 > This isn’t about banning AI — it’s about keeping Quarkus collaborative, human-driven, and focused on quality.
 

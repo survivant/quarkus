@@ -51,20 +51,20 @@
 
 *** Spec inconsistencies
 
-- `ResponseBuilder.location(URI)` doc says relativise to request, but TCK tests relative to base
-- `ResponseBuilder.location(URI)` doc says relativise using `UriInfo` but not available for client API
+- `ResponseBuilder.location(URI)` doc says relativize to request, but TCK tests relative to base
+- `ResponseBuilder.location(URI)` doc says relativize using `UriInfo` but not available for client API
 - `Response.readEntity` says entity stream should be closed, but TCK checks that the `Response` is closed instead
 - `Response.readEntity` says entity can be retrieved by call to `getEntity()` but TCK closes the `Response`, which forbids calls to `getEntity()`
 - `Response.getEntity` does not mention that the response being closed forbids getting an already read entity, but TCK checks that
-- It's crazy that if there's a client `RequestFilter` that calls `abortWith(Response)`, we have to serialise the entity to run the response filter/interceptors
+- It's crazy that if there's a client `RequestFilter` that calls `abortWith(Response)`, we have to serialize the entity to run the response filter/interceptors
 - `AbstractMultivaluedMap.putAll(MultivaluedMap)` will add the parameter's `List` values without copying, directly to the store, which means that 
   further calls to `addAll()` will modify those lists, effectively having both maps share their mutable `List` storage. 
 - `MultivaluedMap` is missing `addAll(MultivaluedMap)` to complete `putAll`
-- The TCK in JAXRSClient0162 tests sending pre-serialised JSON strings as JSON, and so the JSON serialiser had to be modified to not serialise String
-  entities, but that's wrong, because it will properly serialise Boolean, Number and any Object type. Also if you deserialise a JSON string value `"foo"`
-  you will get `foo` without the quotes, whereas with this fix, if we now send a `foo` String value as JSON it will be sent raw (assumed pre-serialised)
-  so this is not regular. We should always serialise string values as JSON string values, and introduce a `SerialisedJsonString` type to mark pre-serialised
-  JSON strings. Possibly even just `RawString` to make sure no serialise will modify them.
+- The TCK in JAXRSClient0162 tests sending pre-serialized JSON strings as JSON, and so the JSON serializer had to be modified to not serialize String
+  entities, but that's wrong, because it will properly serialize Boolean, Number and any Object type. Also if you deserialize a JSON string value `"foo"`
+  you will get `foo` without the quotes, whereas with this fix, if we now send a `foo` String value as JSON it will be sent raw (assumed pre-serialized)
+  so this is not regular. We should always serialize string values as JSON string values, and introduce a `SerializedJsonString` type to mark pre-serialized
+  JSON strings. Possibly even just `RawString` to make sure no serializer will modify them.
 - Request Cookies are based on https://tools.ietf.org/html/rfc2109 which have the clients send cookie params to the server, using `$`-prefixed parameter names,
   but it was obsoleted in https://tools.ietf.org/html/rfc2965 and then in https://tools.ietf.org/html/rfc6265, which does not send cookie params to the server
   and those params are not `$`-prefixed anymore.
@@ -88,7 +88,7 @@
 - Annotation-based filters, interceptors and exception mappers: @ServerResponseFilter on a method declares a filter, all parameters are injected automatically,
   and the return type can be `Response`, `Optional<Response>` or `Uni<Response>`
 - Local annotation-based exception mappers: if declared in a JAX-RS endpoint, local to that endpoint
-- Add or generify `Response`: this allows scanners to know the type of a response and optimise or produce valid openapi.
+- Add or generify `Response`: this allows scanners to know the type of a response and optimize or produce valid openapi.
 - Parameter-less `@*Param` annotations, make `@Context` optional for method parameters, same for `@PathParam` when there's a path param declared
   with the same name.
 

@@ -6,7 +6,7 @@ Quarkus is built using GitHub Actions, with a mix of hosted and self-hosted runn
 
 ### Non-root user
 
-GitHub Actions should not run with administrator privileges, so will need to be run in a dedicated account.
+GitHub Actions should not run with administrator privileges, so they will need to be run in a dedicated account.
 Make an account for the actions runner. The steps below assume the account has the name `githubactions`.
 It's usually easiest to do account creation in the GUI, via a VNC connection. Users are managed in
 the **Users and Groups** section of the Settings app.
@@ -34,7 +34,7 @@ brew install podman
 Podman needs some [extra configuration](https://quarkus.io/guides/podman) to work with test containers and dev services.
 
 Now log in to the account you created to run the actions.
-As the `githubactions` user (but with administrator privileges)
+As the `githubactions` user (but with administrator privileges):
 
 ```bash
 PODMAN_VERSION=`podman -v | sed 's/[a-zA-Z ]*//'`
@@ -43,7 +43,7 @@ sudo /opt/homebrew/Cellar/podman/$PODMAN_VERSION/bin/podman-mac-helper install
 
 The podman helper install seems to be per-user, but it needs to be done with administrator privileges.
 
-Again as the `githubactions` user, edit ~/.testcontainers.properties and add the following line: `ryuk.container.privileged=true`
+Again as the `githubactions` user, edit `~/.testcontainers.properties` and add the following line: `ryuk.container.privileged=true`
 
 ```bash
 echo "ryuk.container.privileged=true" >> ~/.testcontainers.properties
@@ -100,11 +100,11 @@ echo ACTIONS_RUNNER_HOOK_JOB_COMPLETED=/Users/githubactions/runner-cleanup.sh >>
 echo ACTIONS_RUNNER_HOOK_JOB_STARTED=/Users/githubactions/podman-start.sh >> .env
 ```
 
-In the same script, we also ensure that the podman machine is running before jobs execute.
+In the same script, we also ensure that the Podman machine is running before jobs execute.
 
 #### Start the runner
 
-To test the runner, run
+To test the runner, run:
 
 `run.sh`
 
@@ -112,7 +112,7 @@ Once you're happy the runner is processing builds correctly, it's time to create
 
 ### Start the service on reboot
 
-Note that GitHub have scripts for this, but theirs run as LaunchAgents, not LaunchDaemons.
+Note that GitHub has scripts for this, but theirs run as LaunchAgents, not LaunchDaemons.
 LaunchAgents run when a user logs in, and LaunchDaemons run on boot, so the daemon option seems preferable.
 
 As administrator, `sudo vi /Library/LaunchDaemons/actions.runner.quarkusio-quarkus.macstadium-m1.plist`.

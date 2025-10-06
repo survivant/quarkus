@@ -8,10 +8,10 @@ you are more than welcome on our [mailing list](https://groups.google.com/d/foru
 
 To help us troubleshoot your issues, we will need some performance insights from your application.
 
-On Linux or macOS, one of the best way to gather performance insights would be to generate CPU and allocation [FlameGraphs](https://github.com/brendangregg/FlameGraph)
+On Linux or macOS, one of the best ways to gather performance insights would be to generate CPU and allocation [FlameGraphs](https://github.com/brendangregg/FlameGraph)
 via [Async Profiler](https://github.com/jvm-profiling-tools/async-profiler).
 
-If you want a deeper introduction to Async Profiler, do checkout [this article](https://hackernoon.com/profiling-java-applications-with-async-profiler-049s2790).
+If you want a deeper introduction to Async Profiler, check out [this article](https://hackernoon.com/profiling-java-applications-with-async-profiler-049s2790).
 
 ## Installing Async Profiler
 
@@ -35,7 +35,7 @@ sudo sysctl -w kernel.perf_event_paranoid=1
 sudo sysctl -w kernel.kptr_restrict=0
 ```
 
-For allocation profiling, you also need to install HotSpot debug symbol (unless you use Oracle JDK that embeds them already).
+For allocation profiling, you also need to install HotSpot debug symbols (unless you use Oracle JDK, which embeds them already).
 
 Depending on your Linux and Java distribution this can be done via:
 
@@ -50,7 +50,7 @@ apt install openjdk-17-dbg
 debuginfo-install java-17-openjdk
 ```
 
-You can also use a __fastdebug__ build of OpenJdk, this kind of build is not for production use (JVM as assertions are enabled), but it includes debug symbols
+You can also use a __fastdebug__ build of OpenJDK. This kind of build is not for production use (JVM assertions are enabled), but it includes debug symbols
 
 If needed, see [this](https://github.com/jvm-profiling-tools/async-profiler#allocation-profiling) section in the Async Profiler site for details.
 
@@ -58,8 +58,8 @@ If needed, see [this](https://github.com/jvm-profiling-tools/async-profiler#allo
 
 Async Profiler comes with a Java agent, and a command line.
 
-To profile application while it is running, it is recommended to use the command line as you can choose when to start the profiler and prevent your profile data from being bloated with startup events.
-This can be important as any application performs a lot of bootstrapping operation upon startup that won't occur at any other during the application lifecycle.
+To profile the application while it is running, it is recommended to use the command line as you can choose when to start the profiler and prevent your profile data from being bloated with startup events.
+This can be important as any application performs a lot of bootstrapping operations upon startup that won't occur at any other time during the application lifecycle.
 By starting the profiling on demand, you prevent these bootstrap instructions from being part of the profile data.
 
 When you use the command line, it is advised to use `-XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints` JVM flags to have more accurate results.
@@ -85,11 +85,11 @@ The output is a text file that is not really usable, so let's use our preferred 
 /path/to/async-profiler/profiler.sh stop -f /tmp/cpu-profile.html <pid>
 ```
 
-It will create an HTML flame graph (Async Profiler automatically detect that you ask for a  flame graph thanks to the `html` file extension)
+It will create an HTML flame graph (Async Profiler automatically detects that you requested a flame graph thanks to the `html` file extension)
 that you can open in your browser (and even zoom inside it by clicking on a frame).
 
 One very useful option is `-s` (or `--simple`) that results in simple class names being used instead of fully qualified class names,
-thus making the  flame graph more readable (at cost of not showing the package names of classes).
+thus making the flame graph more readable (at the cost of not showing the package names of classes).
 You can also limit the profiling duration by using `-d` (or `--duration`) followed by the duration in seconds.
 If you use the `--duration` option, the output file will be created automatically at the end of the duration period. You do not need to explicitly start and stop the profiler.
 
@@ -166,8 +166,8 @@ java -cp ${PATH_TO_ASYNC_PROFILER}/lib/converter.jar jfr2flame startup-alloc-pro
 
 Note that short options are not supported inside the agent, you need to use their long versions.
 
-By default, Async Profiler sample events every 10ms.
-When it comes to profiling / debugging a Quarkus startup issue, this value is often too high as Quarkus starts very fast.
+By default, Async Profiler samples events every 10ms.
+When it comes to profiling/debugging a Quarkus startup issue, this value is often too high as Quarkus starts very fast.
 For that reason, it is not uncommon to configure the profiling interval to 1000000ns (i.e. 1ms).
 
 ## Profiling application dev mode with Async Profiler
@@ -205,14 +205,14 @@ This can be achieved by adding the following system property: `-Dquarkus.debug.p
 There is also a nice visualization of build steps available in the Dev UI located here: <http://localhost:8080/q/dev/build-steps>.
 
 If you want to have the same visualization of build steps processing when building your application, you can use the `quarkus.debug.dump-build-metrics=true` property.
-For example using `mvn package -Dquarkus.debug.dump-build-metrics=true`, will generate a `build-metrics.json` in your `target` repository that you can process via the quarkus-build-report application available here <https://github.com/mkouba/quarkus-build-report>.
-This application will generate a `report.html` that you can open in your browser.
+For example, using `mvn package -Dquarkus.debug.dump-build-metrics=true` will generate a `build-metrics.json` file in your `target` directory that you can process via the quarkus-build-report application available here <https://github.com/mkouba/quarkus-build-report>.
+This application will generate a `report.html` file that you can open in your browser.
 
 ## What about Windows?
 
 If you are on Windows, you can still get useful performance insights using JFR - Java Flight Recorder.
 
-The following Java options will enable JFR to record profiling data inside a `myrecording.jfr` file that can then be used by JMC - Java Mission Control for analysis.
+The following Java options will enable JFR to record profiling data in a `myrecording.jfr` file that can then be used by JMC - Java Mission Control for analysis.
 
 ```shell script
 -XX:StartFlightRecording=filename=myrecording.jfr,settings=profile -XX:FlightRecorderOptions=stackdepth=64
@@ -222,5 +222,5 @@ Here we configure JFR with a deeper stack depth as the default is usually not en
 
 ## What about native executables?
 
-If you are having performance issues with native builds of your application first make sure that these issues only manifest in native mode.
+If you are having performance issues with native builds of your application, first make sure that these issues only manifest in native mode.
 If so, please consult the [native reference guide](https://quarkus.io/guides/native-reference) and more specifically the [profiling section](https://quarkus.io/guides/native-reference#profiling).
