@@ -150,7 +150,7 @@ public class OpenshiftProcessor {
             String jarDirectory = config.jarDirectory().orElse(ContainerImageOpenshiftConfig.FALLBACK_JAR_DIRECTORY);
             String pathToJar = concatUnixPaths(jarDirectory, jarFileName);
 
-            //In all other cases its the responsibility of the image to set those up correctly.
+            //In all other cases it's the responsibility of the image to set those up correctly.
             if (hasCustomJarPath || hasCustomJvmArguments) {
                 List<String> cmd = new ArrayList<>();
                 cmd.add("java");

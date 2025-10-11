@@ -117,7 +117,7 @@ public class QuarkusCli implements QuarkusApplication, OutputProvider, Callable<
             boolean existingCommand = missingCommand.isEmpty();
             // If the command already exists and is not a help command (that lists subcommands) or plugin command, then just execute
             // without dealing with plugins.
-            // The reason that we check if its a plugin command is that plugin commands need PluginManager initialization.
+            // The reason that we check if it's a plugin command is that plugin commands need PluginManager initialization.
             if (existingCommand && !noCommand && !helpCommand && !pluginCommand) {
                 return cmd.execute(args);
             }
